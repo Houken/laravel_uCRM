@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\InertiaTestController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -35,4 +36,23 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+Route::get(
+    'inertia-test',
+    function () {
+        return Inertia::render('InertiaTest');
+    }
+);
+
+Route::get('/component-test', function () {
+    return Inertia::render('ComponentTest');
+});
+
+Route::get('/inertia/index', [InertiaTestController::class, 'index'])->name('inertia.index');
+Route::post('/inertia', [InertiaTestController::class, 'store'])->name('inertia.store');
+Route::get('/inertia/show/{id}', [InertiaTestController::class, 'show'])->name('inertia.show');
+// 名前付きルート「inertia.show」が指定されると、InertiaTestControllerのshowメソッドがコールされる。
+// そのとき、vueファイルで指定したblog.idがルートパラメータとして渡される。
+require __DIR__ . '/auth.php';
+Route::get('/inertia/create', [InertiaTestController::class, 'create'])->name('inertia.create');
+
+Route::delete('/inertia/{id}', [InertiaTestController::class, 'delete'])->name('inertia.delete');

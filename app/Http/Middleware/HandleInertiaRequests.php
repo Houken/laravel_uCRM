@@ -34,6 +34,10 @@ class HandleInertiaRequests extends Middleware
             'auth' => [
                 'user' => $request->user(),
             ],
+            'flash' => [
+                'message' => fn () => $request->session()->get('message')
+                // 必要なときだけ評価の対象。'message' => $request->session()->get('message') の場合は、常に評価対象。
+            ],
         ];
     }
 }
