@@ -21,7 +21,7 @@ const showingNavigationDropdown = ref(false);
                             <!-- Logo -->
                             <div class="shrink-0 flex items-center">
                                 <Link :href="route('dashboard')">
-                                <ApplicationLogo class="block w-16 fill-current text-gray-800" />
+                                <ApplicationLogo class="block w-11 fill-current text-gray-800" />
                                 </Link>
                             </div>
 
@@ -32,6 +32,18 @@ const showingNavigationDropdown = ref(false);
                                     :active="route().current('dashboard')"
                                 >
                                     Dashboard
+                                </NavLink>
+                                <NavLink
+                                    :href="route('items.index')"
+                                    :active="route().current('items.index')"
+                                >
+                                    商品管理
+                                </NavLink>
+                                <NavLink
+                                    :href="route('items.create')"
+                                    :active="route().current('items.create')"
+                                >
+                                    商品登録
                                 </NavLink>
                             </div>
                         </div>
@@ -95,9 +107,9 @@ const showingNavigationDropdown = ref(false);
                                 >
                                     <path
                                         :class="{
-                                            hidden: showingNavigationDropdown,
-                                            'inline-flex': !showingNavigationDropdown,
-                                        }"
+                                    hidden: showingNavigationDropdown,
+                                    'inline-flex': !showingNavigationDropdown,
+                                }"
                                         stroke-linecap="round"
                                         stroke-linejoin="round"
                                         stroke-width="2"
@@ -105,9 +117,9 @@ const showingNavigationDropdown = ref(false);
                                     />
                                     <path
                                         :class="{
-                                            hidden: !showingNavigationDropdown,
-                                            'inline-flex': showingNavigationDropdown,
-                                        }"
+                                    hidden: !showingNavigationDropdown,
+                                    'inline-flex': showingNavigationDropdown,
+                                }"
                                         stroke-linecap="round"
                                         stroke-linejoin="round"
                                         stroke-width="2"
@@ -130,6 +142,18 @@ const showingNavigationDropdown = ref(false);
                             :active="route().current('dashboard')"
                         >
                             Dashboard
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink
+                            :href="route('items.index')"
+                            :active="route().current('items.index')"
+                        >
+                            商品管理
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink
+                            :href="route('items.create')"
+                            :active="route().current('items.create')"
+                        >
+                            商品登録
                         </ResponsiveNavLink>
                     </div>
 
