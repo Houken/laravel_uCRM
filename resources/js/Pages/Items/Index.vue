@@ -1,5 +1,6 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
+import FlashMessage from '@/Components/FlashMessage.vue';
 import { Head, Link } from '@inertiajs/vue3';
 
 defineProps({
@@ -22,9 +23,10 @@ defineProps({
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                     <section class="text-gray-600 body-font">
-                        <div class="container px-5 py-24 mx-auto">
+                        <div class="container px-5 py-4 mx-auto">
+                            <FlashMessage />
                             <div class="flex flex-col text-center w-full mb-8">
-                                <h1 class="sm:text-4xl text-3xl font-medium title-font mb-0 text-gray-900">商品一覧</h1>
+                                <h1 class="sm:text-3xl text-2xl font-medium title-font mb-0 text-gray-900">商品一覧</h1>
 
                             </div>
                             <div class="lg:w-2/3 w-full mx-auto overflow-auto">
@@ -41,13 +43,13 @@ defineProps({
                                                 id</th>
                                             <th
                                                 class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">
-                                                name</th>
+                                                商品名</th>
                                             <th
                                                 class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">
-                                                price</th>
+                                                価格</th>
                                             <th
                                                 class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">
-                                                is_selling</th>
+                                                販売状況</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -55,7 +57,12 @@ defineProps({
                                             v-for="item in items"
                                             :key="item.id"
                                         >
-                                            <td class="px-4 py-3 border-t border-b border-gray-200">{{ item.id }}</td>
+                                            <td class="px-4 py-3 border-t border-b border-gray-200">
+                                                <Link
+                                                    :href="route('items.show', { item: item.id })"
+                                                    class="text-blue-400"
+                                                >{{ item.id }}</Link>
+                                            </td>
                                             <td class="px-4 py-3 border-t border-b border-gray-200">{{ item.name }}</td>
                                             <td class="pl-0 pr-12 py-3 text-right border-t border-b border-gray-200">¥
                                                 {{

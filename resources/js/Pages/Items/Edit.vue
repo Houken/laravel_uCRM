@@ -1,40 +1,20 @@
-<script setup>
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
-import { useForm, Head } from '@inertiajs/vue3';
-import InputError from '@/Components/InputError.vue';
-
-defineProps({
-    errors: Object
-})
-
-const form = useForm({
-    name: null,
-    memo: null,
-    price: null,
-})
-
-const storeItem = () => {
-    form.post('/items/')
-}
-</script>
-
 <template>
 
     <Head title="Dashboard" />
 
     <AuthenticatedLayout>
         <template #header>
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">商品登録</h2>
+            <h2 class="font-semibold text-xl text-gray-800 leading-tight">商品編集</h2>
         </template>
 
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                     <section class="text-gray-600 body-font relative">
-                        <form @submit.prevent="storeItem">
+                        <form @submit.prevent="updateItem(form.id)">
                             <div class="container px-5 py-24 mx-auto">
                                 <div class="flex flex-col text-center w-full mb-12">
-                                    <h1 class="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900">新規商品登録
+                                    <h1 class="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900">商品編集
                                     </h1>
                                 </div>
                                 <div class="lg:w-1/2 md:w-2/3 mx-auto">
@@ -96,9 +76,36 @@ const storeItem = () => {
                                             </div>
                                         </div>
                                         <div class="p-2 w-full">
+                                            <div class="relative">
+                                                <h3 class="leading-7 text-sm text-gray-600">販売状況</h3>
+                                                <input
+                                                    type="radio"
+                                                    id="one"
+                                                    value="1"
+                                                    v-model="form.is_selling"
+                                                />
+                                                <label
+                                                    for="one"
+                                                    class="text-sm text-gray-600 ml-2 mr-4"
+                                                >販売中</label>
+
+                                                <input
+                                                    type="radio"
+                                                    id="two"
+                                                    value="0"
+                                                    v-model="form.is_selling"
+                                                />
+                                                <label
+                                                    for="two"
+                                                    class="text-sm text-gray-600 ml-2 mr-4"
+                                                >販売停止中</label>
+
+                                            </div>
+                                        </div>
+                                        <div class="p-2 w-full">
                                             <button
                                                 class="flex mx-auto text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg"
-                                            >登録する</button>
+                                            >更新する</button>
                                         </div>
                                     </div>
                                 </div>
@@ -110,3 +117,26 @@ const storeItem = () => {
         </div>
     </AuthenticatedLayout>
 </template>
+
+<script setup>
+import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
+import { useForm, Head } from '@inertiajs/vue3';
+import InputError from '@/Components/InputError.vue';
+
+const props = defineProps({
+    errors: Object,
+    item: Object
+})
+
+const form = useForm({
+    id: props.item.id,
+    name: props.item.name,
+    memo: props.item.memo,
+    price: props.item.price,
+    is_selling: props.item.is_selling
+})
+
+const updateItem = id => {
+    form.put(route('items.update', { item: id }))
+}
+</script>
